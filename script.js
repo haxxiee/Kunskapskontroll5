@@ -1,4 +1,7 @@
+import axios from "axios";
+
 const API_KEY = "9deadd48-727f-420f-b571-96e840c97a79";
+const URL = "https://api.thecatapi.com/v1/images/search";
 
 const prevBtn = document.querySelector(".prev");
 const nextBTn = document.querySelector(".next");
@@ -23,18 +26,16 @@ async function fetchImages() {
   toggleAbleButtons(true);
 
   try {
-    const response = await fetch(
-      `https://api.thecatapi.com/v1/images/search?limit=12&page=${page}&order=asc`,
+    const resp = await axios.get(URL, {
+      headers: { "x-api-key": API_KEY },
+      params: {
+        limit: 12,
+        page: page,
+        order: "asc",
+      },
+    });
 
-      {
-        headers: {
-          "x-api-key": API_KEY,
-        },
-      }
-    );
-
-    const data = await response.json();
-    renderImages(data);
+    renderImages(resp.data);
 
     toggleAbleButtons(false);
 
