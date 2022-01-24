@@ -35,7 +35,7 @@ async function fetchImages() {
       },
     });
 
-    renderImages(resp.data);
+    renderImages(data.resp);
 
     toggleAbleButtons(false);
 
