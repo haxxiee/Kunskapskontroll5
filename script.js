@@ -35,8 +35,6 @@ async function fetchImages() {
       },
     });
 
-    console.log();
-
     renderImages(resp.data);
 
     toggleBothButtons(false);
