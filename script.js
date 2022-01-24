@@ -23,7 +23,7 @@ nextBTn.addEventListener("click", () => {
 async function fetchImages() {
   pageIndicator.textContent = "LOADING..";
 
-  toggleAbleButtons(true);
+  toggleBothButtons(true);
 
   try {
     const resp = await axios.get(URL, {
@@ -39,13 +39,15 @@ async function fetchImages() {
 
     renderImages(resp.data);
 
-    toggleAbleButtons(false);
+    toggleBothButtons(false);
 
-    page === 0 ? (prevBtn.disabled = true) : (prevBtn.disabled = false);
     pageIndicator.textContent = `Showing page ${page}`;
   } catch (error) {
     pageIndicator.textContent = "Something went wrong 💣💣";
     imageResults.textContent = null;
+    toggleBothButtons(false);
+  } finally {
+    page === 0 ? (prevBtn.disabled = true) : (prevBtn.disabled = false);
   }
 }
 
@@ -60,7 +62,7 @@ function renderImages(data) {
   });
 }
 
-function toggleAbleButtons(boolean) {
+function toggleBothButtons(boolean) {
   prevBtn.disabled = boolean;
   nextBTn.disabled = boolean;
 }
